@@ -9,8 +9,13 @@
 #import "ViewController.h"
 #import "FlatUIKit.h"
 #import "MNMRemoteImageView.h"
+#import "FacedoorModel.h"
+#import "DDLog.h"
+#import "DDTTYLogger.h"
+#import "ALAlertBanner.h"
 
-#define kBaseUrl @"http://www.quizz.biz/uploads/quizz/152064/3_8yQNI.jpg"
+#define ARC4RANDOM_MAX      0x100000000
+
 
 @interface ViewController ()
 
@@ -20,10 +25,38 @@
 @property (weak, nonatomic) IBOutlet FUIButton *simulatePush;
 @property (weak, nonatomic) IBOutlet MNMRemoteImageView *personImgView;
 
+@property (strong, nonatomic) FacedoorModel *model;
+
 @end
 
 @implementation ViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self)
+    {
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self)
+    {
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+- (void)commonInit
+{
+    self.model = [FacedoorModel sharedInstance];
+}
 
 - (void)viewDidLoad
 {
@@ -66,40 +99,18 @@
 
 }
 
-
-- (IBAction)simulatePushMessage
-{
-    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-    if (localNotif == nil)
-    {
-        NSLog(@"Error: Failed to create local push message");
-        return;
-    }
-    
-    localNotif.fireDate = [NSDate dateWithTimeInterval:2.0 sinceDate:[NSDate date]];
-    localNotif.timeZone = [NSTimeZone defaultTimeZone];
-    localNotif.alertBody = @"Just some text";
-    localNotif.alertAction = @"OK";
-    localNotif.soundName = UILocalNotificationDefaultSoundName;
-    localNotif.applicationIconBadgeNumber = 1;
-    localNotif.userInfo = @{
-                            @"eventId": @"1234",
-                            @"timestamp": @(1392553353)
-                        };
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"should load remote image");
+    DDLogVerbose(@"should load remote image");
     
-    //TODO get eventID from push message
-    [self loadImageWithEventId:nil];
+    NSString *eventId = [self.model eventId];
+    [self loadImageWithEventId:eventId];
 }
 
 - (void)loadImageWithEventId:(NSString*)eventId
 {
-    [self.personImgView displayImageFromURL:[self urlForImageWithEventId:eventId]
+    NSString *imgUrl = [self.model imageUrlForPerson];
+    [self.personImgView displayImageFromURL:imgUrl
                          completionHandler:^(NSError *error)
     {
          if (error) {
@@ -111,16 +122,105 @@
                                                    otherButtonTitles:nil];
              [alert show];
          }
-        
-        
      }];
-    
 }
 
-- (NSString*)urlForImageWithEventId:(NSString*)eventId
+- (IBAction)simulatePushMessage
 {
-    return [NSString stringWithFormat:@"%@%@",kBaseUrl,eventId ? eventId : @""];
-     
+    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+    if (localNotif == nil)
+    {
+        DDLogVerbose(@"Error: Failed to create local push message");
+        return;
+    }
+    
+    double delayInSecs = 2 + ((double)arc4random() / ARC4RANDOM_MAX) * 5;
+    
+    localNotif.fireDate = [NSDate dateWithTimeInterval:delayInSecs sinceDate:[NSDate date]];
+    localNotif.timeZone = [NSTimeZone defaultTimeZone];
+    localNotif.alertBody = @"There's someone at your door";
+    localNotif.alertAction = @"OK";
+    localNotif.soundName = UILocalNotificationDefaultSoundName;
+    localNotif.applicationIconBadgeNumber = 1;
+    localNotif.userInfo = @{
+                            @"eventId": @"1234",
+                            @"timestamp": @(1392553353)
+                            };
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
 }
+
+
+- (IBAction)approveRequest
+{
+    [self.model respondToDoorAccessRequestApproved:YES
+                                       compilition:^
+     (NSURLRequest *request, NSHTTPURLResponse *response, id JSON)
+     {
+         ALAlertBanner *banner = [ALAlertBanner alertBannerForView:self.view
+                                                             style:ALAlertBannerStyleSuccess
+                                                          position:ALAlertBannerPositionTop
+                                                             title:@"Door was opened"
+                                                          subtitle:@"You've opened the door for X"
+                                                       tappedBlock:^(ALAlertBanner *alertBanner)
+                                  {
+                                        NSLog(@"tapped!");
+                                      [alertBanner hide];
+                                  }];
+         [banner show];
+     }
+                                           failure:^
+     (NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON)
+     {
+           DDLogError(@"fialed send approve request");
+         ALAlertBanner *banner = [ALAlertBanner alertBannerForView:self.view
+                                                             style:ALAlertBannerStyleFailure
+                                                          position:ALAlertBannerPositionTop
+                                                             title:@"Door was opened"
+                                                          subtitle:@"You've opened the door for X"
+                                                       tappedBlock:^(ALAlertBanner *alertBanner)
+                                  {
+                                      NSLog(@"tapped!");
+                                      [alertBanner hide];
+                                  }];
+         [banner show];
+   }];
+}
+
+- (IBAction)denyRequest
+{
+    [self.model respondToDoorAccessRequestApproved:YES
+                                       compilition:^
+     (NSURLRequest *request, NSHTTPURLResponse *response, id JSON)
+     {
+         ALAlertBanner *banner = [ALAlertBanner alertBannerForView:self.view
+                                                             style:ALAlertBannerStyleSuccess
+                                                          position:ALAlertBannerPositionTop
+                                                             title:@"Door was opened"
+                                                          subtitle:@"You've opened the door for X"
+                                                       tappedBlock:^(ALAlertBanner *alertBanner)
+                                  {
+                                      NSLog(@"tapped!");
+                                      [alertBanner hide];
+                                  }];
+         [banner show];
+     }
+                                           failure:^
+     (NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON)
+     {
+         DDLogError(@"fialed send approve request");
+         ALAlertBanner *banner = [ALAlertBanner alertBannerForView:self.view
+                                                             style:ALAlertBannerStyleFailure
+                                                          position:ALAlertBannerPositionTop
+                                                             title:@"Door was opened"
+                                                          subtitle:@"You've opened the door for X"
+                                                       tappedBlock:^(ALAlertBanner *alertBanner)
+                                  {
+                                      NSLog(@"tapped!");
+                                      [alertBanner hide];
+                                  }];
+         [banner show];
+     }];
+}
+
 
 @end

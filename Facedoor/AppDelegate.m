@@ -7,6 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "DDLog.h"
+#import "DDTTYLogger.h"
+#import "FacedoorModel.h"
+
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation AppDelegate
 
@@ -19,6 +24,7 @@
         [self handleNotification:pushNotification];
     }
     // Override point for customization after application launch.
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
     
     return YES;
 }
@@ -53,21 +59,30 @@
 - (void)application:(UIApplication *)application
 didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    NSLog(@"Application got push: %@", [notification userInfo]);
+    DDLogVerbose(@"Application got push: %@", [notification userInfo]);
     
     [self handleNotification:[notification userInfo]];
 }
 
 - (void)handleNotification:(NSDictionary*)pushInfo
 {
-    NSLog(@"handle push %@", pushInfo);
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"options"
-                                                        message:[pushInfo description]
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-    [alertView show];
+    DDLogVerbose(@"handle push %@", pushInfo);
+    @try {
+        FacedoorModel *doorModel = [FacedoorModel sharedInstance];
+        [doorModel setEventId:pushInfo[@"eventId"]];
+        [doorModel setEventTimestamp:[NSDate dateWithTimeIntervalSince1970:[pushInfo[@"timestamp"] doubleValue]]];
+    }
+    @catch (NSException *exception) {
+        DDLogCError(@"%@",exception);
+    }
+    @finally {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"options"
+                                                            message:[pushInfo description]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }
 
 }
 

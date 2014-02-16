@@ -47,6 +47,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="denyRequest" destination="2" eventType="touchUpInside" id="ecr-Lv-6C1"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VYn-sY-Vzx" customClass="FUIButton">
                                 <rect key="frame" x="207" y="373" width="93" height="44"/>
@@ -58,6 +61,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="approveRequest" destination="2" eventType="touchUpInside" id="PIs-Lg-lEy"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="WPl-EH-EuR" customClass="MNMRemoteImageView">
                                 <rect key="frame" x="40" y="47" width="240" height="233"/>
