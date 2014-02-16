@@ -22,6 +22,7 @@
  */
 
 #import "MNMRemoteImageView.h"
+#import "NSData+Base64_Data.h"
 
 @interface MNMRemoteImageView()
 
@@ -144,9 +145,11 @@
         [activityIndicator_ startAnimating];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            
+            NSError *error = nil;
             NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-            UIImage *image = [UIImage imageWithData:imageData];
+            NSString *strData = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:&error];
+            NSData *data = [[NSData alloc] initWithData:[NSData base64DataFromString:strData]];
+            UIImage *image = [UIImage imageWithData:data];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 

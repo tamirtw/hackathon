@@ -22,6 +22,7 @@
 - (void)respondToDoorAccessRequestApproved:(BOOL)approved
                                compilition:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id JSON))success
                                    failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON))failure;
+- (void)testApiForStatus;
 
 
 @end

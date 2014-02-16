@@ -55,6 +55,7 @@
 		A062909418B0B32B00A4C5B0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A062906F18B0B32B00A4C5B0 /* Foundation.framework */; };
 		A062909C18B0B32B00A4C5B0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A062909A18B0B32B00A4C5B0 /* InfoPlist.strings */; };
 		A062909F18B0B32B00A4C5B0 /* FacedoorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A062909E18B0B32B00A4C5B0 /* FacedoorTests.m */; };
+		A0C1416718B12B070013A8BD /* NSData+Base64_Data.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C1416618B12B070013A8BD /* NSData+Base64_Data.m */; };
 		A0D17EB918B0CFDF00B5BFFF /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D17EA718B0CFDF00B5BFFF /* AFHTTPClient.m */; };
 		A0D17EBA18B0CFDF00B5BFFF /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D17EA918B0CFDF00B5BFFF /* AFHTTPRequestOperation.m */; };
 		A0D17EBB18B0CFDF00B5BFFF /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D17EAB18B0CFDF00B5BFFF /* AFImageRequestOperation.m */; };
@@ -170,6 +171,8 @@
 		A062909B18B0B32B00A4C5B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A062909D18B0B32B00A4C5B0 /* FacedoorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FacedoorTests.h; sourceTree = "<group>"; };
 		A062909E18B0B32B00A4C5B0 /* FacedoorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FacedoorTests.m; sourceTree = "<group>"; };
+		A0C1416518B12B070013A8BD /* NSData+Base64_Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64_Data.h"; sourceTree = "<group>"; };
+		A0C1416618B12B070013A8BD /* NSData+Base64_Data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64_Data.m"; sourceTree = "<group>"; };
 		A0D17EA618B0CFDF00B5BFFF /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		A0D17EA718B0CFDF00B5BFFF /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		A0D17EA818B0CFDF00B5BFFF /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -390,6 +393,8 @@
 				A062907418B0B32B00A4C5B0 /* Supporting Files */,
 				A0D17ED118B0EC8000B5BFFF /* FacedoorModel.h */,
 				A0D17ED218B0EC8000B5BFFF /* FacedoorModel.m */,
+				A0C1416518B12B070013A8BD /* NSData+Base64_Data.h */,
+				A0C1416618B12B070013A8BD /* NSData+Base64_Data.m */,
 			);
 			path = Facedoor;
 			sourceTree = "<group>";
@@ -669,6 +674,7 @@
 				A0D17EF318B0F3FF00B5BFFF /* DDMultiFormatter.m in Sources */,
 				A05C9D5E18B1098C000AEB6D /* ALAlertBanner.m in Sources */,
 				A05C9D5F18B1098C000AEB6D /* ALAlertBannerManager.m in Sources */,
+				A0C1416718B12B070013A8BD /* NSData+Base64_Data.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

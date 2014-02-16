@@ -170,7 +170,7 @@
     CGFloat titleHeight;
     CGFloat messageHeight;
     
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending) {
+//    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending) {
         // iOS7 methods
 //        CGRect titleRect = [self.titleLabel.text boundingRectWithSize:CGSizeMake(contentWidth, CGFLOAT_MAX)
 //                                                              options:NSStringDrawingUsesLineFragmentOrigin
@@ -182,11 +182,11 @@
 //                                                                  context:nil];
 //        titleHeight = titleRect.size.height;
 //        messageHeight = messageRect.size.height;
-    } else {
+//    } else {
         // Pre-iOS7 methods
         titleHeight = [self.titleLabel.text sizeWithFont:self.titleLabel.font constrainedToSize:CGSizeMake(contentWidth, CGFLOAT_MAX)].height;
         messageHeight = [self.messageLabel.text sizeWithFont:self.messageLabel.font constrainedToSize:CGSizeMake(contentWidth, CGFLOAT_MAX)].height;
-    }
+//    }
 
     CGFloat buttonHeight = [self totalButtonHeight];
     CGFloat contentHeight = titleHeight + 10 + messageHeight + 10 + buttonHeight;

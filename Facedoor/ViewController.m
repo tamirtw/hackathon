@@ -188,6 +188,9 @@
 
 - (IBAction)denyRequest
 {
+    
+    [self.model testApiForStatus];
+    return;
     [self.model respondToDoorAccessRequestApproved:YES
                                        compilition:^
      (NSURLRequest *request, NSHTTPURLResponse *response, id JSON)
