@@ -13,8 +13,11 @@
 
 @interface FacedoorModel : NSObject
 
+@property (nonatomic, strong) NSString *systemId;
 @property (nonatomic, strong) NSString *eventId;
 @property (nonatomic, strong) NSDate *eventTimestamp;
+@property (nonatomic, strong) NSString *message;
+@property (nonatomic) BOOL isAuthorized;
 
 + (instancetype)sharedInstance;
 - (NSString*)imageUrlForPerson;

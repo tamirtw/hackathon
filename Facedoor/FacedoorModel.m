@@ -29,7 +29,7 @@
 
 - (NSString*)imageUrlForPersonWithEventId:(NSString*)eventId
 {
-    return [NSString stringWithFormat:@"%@%@",[self baseUrl],eventId ? eventId : @""];
+    return [NSString stringWithFormat:@"%@&eventId=%@",[self apiUrl],eventId];
 }
 
 
@@ -51,19 +51,18 @@
 
 - (void)testApiForStatus
 {
-//    NSURL *url = [NSURL URLWithString:[self apiUrl]];
-//    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-//    
-//    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-//                            @"YXNkYXNkYQ==", @" ",
-//                            nil];
-//    [httpClient postPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-//        NSLog(@"Request Successful, response '%@'", responseStr);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
-//    }];}
+    NSURL *url = [NSURL URLWithString:[self apiUrl]];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
     
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            @"YXNkYXNkYQ==", @" ",
+                            nil];
+    [httpClient postPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSLog(@"Request Successful, response '%@'", responseStr);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
+    }];
 }
 
 - (NSString*)baseUrl
@@ -72,9 +71,15 @@
     return @"http://facedoor.cloudapp.net/api/Image?id=1&eventId=3efd1487654f4167b90ea4b00099f5a1";
 }
 
+- (NSString*)systemId
+{
+    return _systemId ? _systemId : @"1";
+}
+
 - (NSString*)apiUrl
 {
-    return @"http://facedoor.cloudapp.net/api/Image?id=1";
+    return [NSString stringWithFormat:@"http://facedoor.cloudapp.net/api/Image?id=%@",self.systemId];
 }
+
 
 @end

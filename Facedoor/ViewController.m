@@ -14,6 +14,7 @@
 #import "DDTTYLogger.h"
 #import "ALAlertBanner.h"
 #import "HistoryLogModel.h"
+#import "IIViewDeckController.h"
 
 #define ARC4RANDOM_MAX      0x100000000
 
@@ -68,17 +69,18 @@
 - (void)viewDidLoad
 {
     [self setupAppearance];
-    [self.historyLog addLogEntryWithWithEventId:@"testEvent1"
-                                        message:@"Tamir Twina arrived at your door"
-                                      timestamp:@"1391051169"];
-
-    [self.historyLog addLogEntryWithWithEventId:@"testEvent2"
-                                        message:@"Someone's at your door"
-                                      timestamp:@"1390551000"];
     
-    [self.historyLog addLogEntryWithWithEventId:@"testEvent3"
-                                        message:@"Someone's at your door"
-                                      timestamp:@"1390350123"];
+//    [self.historyLog addLogEntryWithWithEventId:@"testEvent1"
+//                                        message:@"Tamir Twina arrived at your door"
+//                                      timestamp:@"1391051169"];
+//
+//    [self.historyLog addLogEntryWithWithEventId:@"testEvent2"
+//                                        message:@"Someone's at your door"
+//                                      timestamp:@"1390551000"];
+//    
+//    [self.historyLog addLogEntryWithWithEventId:@"testEvent3"
+//                                        message:@"Someone's at your door"
+//                                      timestamp:@"1390350123"];
     
     DDLogVerbose(@"%@",[self.historyLog getHistoryLog]);
 
@@ -130,6 +132,31 @@
 
 - (void)pushUpdateArrived
 {
+    if(!self.model.isAuthorized)
+    {
+        [self handleUnAuthorizedEvent];
+        return;
+    }
+    
+    [self handleAuthorizedEvent];
+}
+
+- (void)handleAuthorizedEvent
+{
+    ALAlertBanner *banner = [ALAlertBanner alertBannerForView:self.view
+                                                        style:ALAlertBannerStyleSuccess
+                                                     position:ALAlertBannerPositionTop
+                                                        title:self.model.message
+                                                     subtitle:@"Door was opened"
+                                                  tappedBlock:^(ALAlertBanner *alertBanner)
+                             {
+                                 [alertBanner hide];
+                             }];
+    [banner show];
+}
+
+- (void)handleUnAuthorizedEvent
+{
     NSString *eventId = [self.model eventId];
     [self loadImageWithEventId:eventId];
     DDLogVerbose(@"should load remote image %@",eventId);
@@ -137,7 +164,7 @@
 
 - (void)loadImageWithEventId:(NSString*)eventId
 {
-    NSString *imgUrl = [self.model imageUrlForPerson];
+    NSString *imgUrl = [self.model imageUrlForPersonWithEventId:eventId];
     [self.personImgView displayImageFromURL:imgUrl
                          completionHandler:^(NSError *error)
     {
@@ -251,6 +278,12 @@
                                   }];
          [banner show];
      }];
+}
+
+
+- (IBAction)toggleLogPane
+{
+    [self.viewDeckController toggleRightViewAnimated:YES];
 }
 
 

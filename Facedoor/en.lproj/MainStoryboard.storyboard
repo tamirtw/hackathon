@@ -13,7 +13,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mNW-tx-bjt" customClass="FUIButton">
-                                <rect key="frame" x="49" y="438" width="222" height="44"/>
+                                <rect key="frame" x="49" y="477" width="222" height="44"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Show Log">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -22,19 +22,8 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VZ0-0A-5C3" customClass="FUIButton">
-                                <rect key="frame" x="49" y="495" width="222" height="44"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Simulate Push">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
                                 <connections>
-                                    <action selector="simulatePushMessage" destination="2" eventType="touchUpInside" id="Xyn-d2-I5L"/>
+                                    <action selector="toggleLogPane" destination="2" eventType="touchUpInside" id="wIZ-qP-LEz"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yqo-52-rco" customClass="FUIButton">
@@ -76,7 +65,6 @@
                         <outlet property="noButton" destination="yqo-52-rco" id="Vcw-Nl-jWp"/>
                         <outlet property="personImgView" destination="WPl-EH-EuR" id="8Xt-TE-8UM"/>
                         <outlet property="showLog" destination="mNW-tx-bjt" id="M5A-9B-Lmr"/>
-                        <outlet property="simulatePush" destination="VZ0-0A-5C3" id="B5Y-aM-CNT"/>
                         <outlet property="yesButton" destination="VYn-sY-Vzx" id="M0T-8x-vOD"/>
                     </connections>
                 </viewController>
@@ -106,7 +94,7 @@
                                             <color key="backgroundColor" red="0.92549019607843142" green="0.94117647058823528" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                                         </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Message" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" id="oki-GD-q36">
-                                            <rect key="frame" x="79" y="7" width="221" height="38"/>
+                                            <rect key="frame" x="102" y="7" width="206" height="38"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -120,7 +108,7 @@
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="eRT-VD-LKc" customClass="MNMRemoteImageView">
-                                            <rect key="frame" x="20" y="4" width="51" height="51"/>
+                                            <rect key="frame" x="40" y="4" width="51" height="51"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                     </subviews>

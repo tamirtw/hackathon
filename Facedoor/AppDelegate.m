@@ -109,7 +109,10 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
     DDLogVerbose(@"handle push %@", pushInfo);
     @try {
         FacedoorModel *doorModel = [FacedoorModel sharedInstance];
+        [doorModel setIsAuthorized:pushInfo[@"name"] ? YES : NO];
         [doorModel setEventId:pushInfo[@"eventId"]];
+        [doorModel setMessage:pushInfo[@"aps"][@"alert"]];
+        [doorModel setSystemId:pushInfo[@"id"]];
         [doorModel setEventTimestamp:[NSDate dateWithTimeIntervalSince1970:[pushInfo[@"timestamp"] doubleValue]]];
     }
     @catch (NSException *exception) {
