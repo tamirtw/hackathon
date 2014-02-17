@@ -146,7 +146,6 @@
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             NSError *error = nil;
-            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
             NSString *strData = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:&error];
             NSData *data = [[NSData alloc] initWithData:[NSData base64DataFromString:strData]];
             UIImage *image = [UIImage imageWithData:data];

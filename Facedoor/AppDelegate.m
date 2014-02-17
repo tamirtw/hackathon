@@ -10,21 +10,44 @@
 #import "DDLog.h"
 #import "DDTTYLogger.h"
 #import "FacedoorModel.h"
+#import "IIViewDeckController.h"
+#import "HistoryViewController.h"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+
+@interface AppDelegate ()
+
+@property (strong, nonatomic) IIViewDeckController *viewDeckController;
+
+@end
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+    (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
     NSDictionary *pushNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
 //    NSDictionary *pushNotification = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+    
     if (pushNotification)
     {
         [self handleNotification:pushNotification];
     }
+    
     // Override point for customization after application launch.
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    
+    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle: nil];
+    HistoryViewController* historyController = [mainStoryboard instantiateViewControllerWithIdentifier:@"HistoryLog"];
+    
+    UINavigationController* navigationController = (UINavigationController *) self.window.rootViewController;
+    self.viewDeckController =  [[IIViewDeckController alloc] initWithCenterViewController:navigationController
+                                                                       leftViewController:nil
+                                                                      rightViewController:historyController];
+    self.window.rootViewController = self.viewDeckController;
     
     return YES;
 }
@@ -84,6 +107,16 @@ didReceiveLocalNotification:(UILocalNotification *)notification
         [alertView show];
     }
 
+}
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+	NSLog(@"My token is: %@", deviceToken);
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+	NSLog(@"Failed to get token, error: %@", error);
 }
 
 @end

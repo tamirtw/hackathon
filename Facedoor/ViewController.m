@@ -13,6 +13,7 @@
 #import "DDLog.h"
 #import "DDTTYLogger.h"
 #import "ALAlertBanner.h"
+#import "HistoryLogModel.h"
 
 #define ARC4RANDOM_MAX      0x100000000
 
@@ -26,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet MNMRemoteImageView *personImgView;
 
 @property (strong, nonatomic) FacedoorModel *model;
+@property (strong, nonatomic) HistoryLogModel *historyLog;
 
 @end
 
@@ -56,11 +58,24 @@
 - (void)commonInit
 {
     self.model = [FacedoorModel sharedInstance];
+    self.historyLog = [HistoryLogModel sharedInstance];
 }
 
 - (void)viewDidLoad
 {
     [self setupAppearance];
+    [self.historyLog addLogEntryWithWithEventId:@"asdasdasd"
+                                        message:@"12131313"
+                                      timestamp:@"1234567555"];
+
+    [self.historyLog addLogEntryWithWithEventId:@"dfrjruertj"
+                                        message:@"12131313"
+                                      timestamp:@"1234567555"];
+    [self.historyLog addLogEntryWithWithEventId:@"34985739fojfs"
+                                        message:@"12131313"
+                                      timestamp:@"1234567555"];
+    DDLogVerbose(@"%@",[self.historyLog getHistoryLog]);
+
 }
 
 - (void)setupAppearance
