@@ -63,7 +63,7 @@
     [self.database open];
     NSMutableArray *historyLog = [NSMutableArray new];
     
-    FMResultSet *results = [self.database executeQuery:@"select * from log"];
+    FMResultSet *results = [self.database executeQuery:@"select * from log order by timestamp desc"];
     while([results next]) {
         NSString *message = [results stringForColumn:@"message"];
         NSDate *timestamp  = [NSDate dateWithTimeIntervalSince1970:[[results stringForColumn:@"timestamp"] doubleValue]];

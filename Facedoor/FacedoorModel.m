@@ -8,6 +8,7 @@
 
 #import "FacedoorModel.h"
 #import "AFNetworking.h"
+#import "NSData+Base64_Data.h"
 
 @implementation FacedoorModel
 
@@ -51,18 +52,36 @@
 
 - (void)testApiForStatus
 {
-    NSURL *url = [NSURL URLWithString:[self apiUrl]];
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    NSString *urlString = [NSString stringWithFormat:@"http://facedoor.cloudapp.net/api/Status?id=%@&eventId=%@",self.systemId,self.eventId];
+    NSURL *url = [NSURL URLWithString:urlString];
+//    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+//    
+//    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+//                            @"YXNkYXNkYQ==", @" ",
+//                            nil];
+//    [httpClient postPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+//        NSLog(@"Request Successful, response '%@'", responseStr);
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
+//    }];
+    // Make a request...
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            @"YXNkYXNkYQ==", @" ",
-                            nil];
-    [httpClient postPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        NSLog(@"Request Successful, response '%@'", responseStr);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
-    }];
+    // Generate an NSData from your NSString (see below for link to more info)
+    NSData *postBody = [NSData base64DataFromString:@"1"];
+    
+    // Add Content-Length header if your server needs it
+    unsigned long long postLength = postBody.length;
+    NSString *contentLength = [NSString stringWithFormat:@"%llu", postLength];
+    [request addValue:contentLength forHTTPHeaderField:@"Content-Length"];
+    
+    // This should all look familiar...
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:postBody];
+    
+//    AFHTTPRequestOperation *operation = [client HTTPRequestOperationWithRequest:request success:success failure:failure];
+//    [client enqueueHTTPRequestOperation:operation];
 }
 
 - (NSString*)baseUrl

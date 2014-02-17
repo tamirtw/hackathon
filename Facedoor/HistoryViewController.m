@@ -34,7 +34,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    [self.tableView setContentInset:UIEdgeInsetsMake(0, 50, 0.0, 0.0)];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,6 +85,7 @@
     cell.eventTitle.text = logEntry.eventId;
     [cell.eventImg displayImageFromURL:[[FacedoorModel sharedInstance] imageUrlForPersonWithEventId:logEntry.eventId]
                      completionHandler:nil];
+    //TODO Add place holder image 
     
     cell.detailTextLabel.text = [NSString stringWithFormat:@"details for row number %d",indexPath.row];
     
