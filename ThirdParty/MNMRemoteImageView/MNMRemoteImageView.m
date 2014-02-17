@@ -165,8 +165,8 @@
                                                 code:-1
                                             userInfo:@{ NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Cannot download image from '%@'", url_] }];
                 }
-                
-                completionBlock(error);
+                if(completionBlock)
+                    completionBlock(error);
             });
         });
     }

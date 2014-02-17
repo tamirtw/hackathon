@@ -97,11 +97,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 - (void)application:(UIApplication *)application
-didReceiveLocalNotification:(UILocalNotification *)notification
+didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    DDLogVerbose(@"Application got push: %@", [notification userInfo]);
+    DDLogVerbose(@"Application got push: %@", userInfo);
     
-    [self handleNotification:[notification userInfo]];
+    [self handleNotification:userInfo];
 }
 
 - (void)handleNotification:(NSDictionary*)pushInfo
@@ -116,6 +116,7 @@ didReceiveLocalNotification:(UILocalNotification *)notification
         DDLogCError(@"%@",exception);
     }
     @finally {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kPushInfoArrived object:self userInfo:nil];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"options"
                                                             message:[pushInfo description]
                                                            delegate:nil
@@ -123,7 +124,6 @@ didReceiveLocalNotification:(UILocalNotification *)notification
                                                   otherButtonTitles:nil];
         [alertView show];
     }
-
 }
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken

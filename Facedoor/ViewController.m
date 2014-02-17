@@ -59,21 +59,27 @@
 {
     self.model = [FacedoorModel sharedInstance];
     self.historyLog = [HistoryLogModel sharedInstance];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(pushUpdateArrived)
+                                                 name:kPushInfoArrived
+                                               object:nil];
 }
 
 - (void)viewDidLoad
 {
     [self setupAppearance];
-    [self.historyLog addLogEntryWithWithEventId:@"asdasdasd"
-                                        message:@"12131313"
-                                      timestamp:@"1234567555"];
+    [self.historyLog addLogEntryWithWithEventId:@"testEvent1"
+                                        message:@"Tamir Twina arrived at your door"
+                                      timestamp:@"1391051169"];
 
-    [self.historyLog addLogEntryWithWithEventId:@"dfrjruertj"
-                                        message:@"12131313"
-                                      timestamp:@"1234567555"];
-    [self.historyLog addLogEntryWithWithEventId:@"34985739fojfs"
-                                        message:@"12131313"
-                                      timestamp:@"1234567555"];
+    [self.historyLog addLogEntryWithWithEventId:@"testEvent2"
+                                        message:@"Someone's at your door"
+                                      timestamp:@"1390551000"];
+    
+    [self.historyLog addLogEntryWithWithEventId:@"testEvent3"
+                                        message:@"Someone's at your door"
+                                      timestamp:@"1390350123"];
+    
     DDLogVerbose(@"%@",[self.historyLog getHistoryLog]);
 
 }
@@ -120,6 +126,13 @@
     
     NSString *eventId = [self.model eventId];
     [self loadImageWithEventId:eventId];
+}
+
+- (void)pushUpdateArrived
+{
+    NSString *eventId = [self.model eventId];
+    [self loadImageWithEventId:eventId];
+    DDLogVerbose(@"should load remote image %@",eventId);
 }
 
 - (void)loadImageWithEventId:(NSString*)eventId

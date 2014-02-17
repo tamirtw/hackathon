@@ -10,6 +10,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import "HistoryLogModel.h"
 #import "LogEntry.h"
+#import "LogEntryCell.h"
+#import "NSDate+TimeAgo.h"
+#import "FacedoorModel.h"
 
 @interface HistoryViewController ()
 
@@ -62,24 +65,21 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //1. Get the cell
-    static NSString *CellIdentifier = @"Bla";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"LogCell";
+    LogEntryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if (cell == nil) {
-
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        
-        //2. Apply some text styles
-        cell.textLabel.textColor = [self colorFromIndex:indexPath.row];
-        cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:11];
-        cell.detailTextLabel.font = [UIFont fontWithName:@"Helvetica" size:8];
-        cell.imageView.image = [UIImage imageNamed:@"colors.gif"];
+    if (cell == nil)
+    {
+        cell = [[LogEntryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     //3. Setup the cell
     LogEntry *logEntry = [[self.model getHistoryLog] objectAtIndex:indexPath.row];
-    cell.textLabel.text = logEntry.message;
-    cell.detailTextLabel.text = [logEntry.eventId stringByAppendingString:logEntry.eventId];
+    cell.message.text = logEntry.message;
+    cell.timeAgo.text = [logEntry.timestamp timeAgo];
+    cell.eventTitle.text = logEntry.eventId;
+    [cell.eventImg displayImageFromURL:[[FacedoorModel sharedInstance] imageUrlForPersonWithEventId:logEntry.eventId]
+                     completionHandler:nil];
     
     cell.detailTextLabel.text = [NSString stringWithFormat:@"details for row number %d",indexPath.row];
     

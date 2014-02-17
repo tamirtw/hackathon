@@ -14,3 +14,7 @@
     #import "DDLog.h"
     #import "DDTTYLogger.h"
 #endif
+
+
+//Hacky but saves an include
+#define kPushInfoArrived @"pushDataArrived"

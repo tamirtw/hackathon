@@ -69,6 +69,7 @@
 		A062909F18B0B32B00A4C5B0 /* FacedoorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A062909E18B0B32B00A4C5B0 /* FacedoorTests.m */; };
 		A09F8B6B18B24F5600A75BA2 /* libUAirship-2.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A09F8B0918B24F5600A75BA2 /* libUAirship-2.1.0.a */; };
 		A09F8BA418B2511500A75BA2 /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A09F8BA318B2511500A75BA2 /* AirshipConfig.plist */; };
+		A09F8BA718B25BF500A75BA2 /* LogEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A09F8BA618B25BF500A75BA2 /* LogEntryCell.m */; };
 		A0BA5A9B18B1F4140090D7AA /* IISideController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BA5A9618B1F4140090D7AA /* IISideController.m */; };
 		A0BA5A9C18B1F4140090D7AA /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BA5A9818B1F4140090D7AA /* IIViewDeckController.m */; };
 		A0BA5A9D18B1F4140090D7AA /* IIWrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BA5A9A18B1F4140090D7AA /* IIWrapController.m */; };
@@ -263,6 +264,8 @@
 		A09F8B0D18B24F5600A75BA2 /* UADeviceRegistrationPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UADeviceRegistrationPayload.h; sourceTree = "<group>"; };
 		A09F8B0E18B24F5600A75BA2 /* UAPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAPush.h; sourceTree = "<group>"; };
 		A09F8BA318B2511500A75BA2 /* AirshipConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AirshipConfig.plist; sourceTree = SOURCE_ROOT; };
+		A09F8BA518B25BF500A75BA2 /* LogEntryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogEntryCell.h; sourceTree = "<group>"; };
+		A09F8BA618B25BF500A75BA2 /* LogEntryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogEntryCell.m; sourceTree = "<group>"; };
 		A0BA5A9518B1F4140090D7AA /* IISideController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IISideController.h; sourceTree = "<group>"; };
 		A0BA5A9618B1F4140090D7AA /* IISideController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IISideController.m; sourceTree = "<group>"; };
 		A0BA5A9718B1F4140090D7AA /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
@@ -482,6 +485,8 @@
 				A05C3C2518B209AE006D9480 /* LogEntry.m */,
 				A05C3C3B18B20DF8006D9480 /* HistoryViewController.h */,
 				A05C3C3C18B20DF8006D9480 /* HistoryViewController.m */,
+				A09F8BA518B25BF500A75BA2 /* LogEntryCell.h */,
+				A09F8BA618B25BF500A75BA2 /* LogEntryCell.m */,
 			);
 			name = History;
 			sourceTree = "<group>";
@@ -975,6 +980,7 @@
 				A05C3C3618B20BEF006D9480 /* FMDatabaseQueue.m in Sources */,
 				A05C3C3818B20BEF006D9480 /* FMResultSet.m in Sources */,
 				A05C3C3D18B20DF8006D9480 /* HistoryViewController.m in Sources */,
+				A09F8BA718B25BF500A75BA2 /* LogEntryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
