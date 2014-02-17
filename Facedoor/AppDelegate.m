@@ -12,6 +12,9 @@
 #import "FacedoorModel.h"
 #import "IIViewDeckController.h"
 #import "HistoryViewController.h"
+#import "UAirship.h"
+#import "UAConfig.h"
+#import "UAPush.h"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -26,11 +29,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-    (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    
-    NSDictionary *pushNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
-//    NSDictionary *pushNotification = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+    [self configPush];
+//    NSDictionary *pushNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
+    NSDictionary *pushNotification = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     
     if (pushNotification)
     {
@@ -50,6 +51,22 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.window.rootViewController = self.viewDeckController;
     
     return YES;
+}
+
+- (void)configPush
+{
+    // Populate AirshipConfig.plist with your app's info from https://go.urbanairship.com
+    // or set runtime properties here.
+    UAConfig *config = [UAConfig defaultConfig];
+        
+    // Call takeOff (which creates the UAirship singleton)
+    [UAirship takeOff:config];
+    
+    // Request a custom set of notification types
+    [UAPush shared].notificationTypes = (UIRemoteNotificationTypeBadge |
+                                         UIRemoteNotificationTypeSound |
+                                         UIRemoteNotificationTypeAlert |
+                                         UIRemoteNotificationTypeNewsstandContentAvailability);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
