@@ -91,5 +91,13 @@ typedef enum APIRequestType {
     return path;
 }
 
+- (void)resetModel
+{
+    self.eventId = nil;
+    self.message = nil;
+    self.isAuthorized = NO;
+    self.eventTimestamp = nil;
+}
+
 
 @end

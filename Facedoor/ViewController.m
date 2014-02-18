@@ -167,6 +167,7 @@
     if(!self.personImgView)
     {
         self.personImgView = [[TWDraggableView alloc] initWithFrame:(CGRect){40,47,240,233}];
+        self.personImgView.delegate = self;
         [UIView animateWithDuration:0.3 animations:^{
             [self.thanksView setAlpha:0];
             [self.view addSubview:self.personImgView];
@@ -223,6 +224,9 @@
         [UIView animateWithDuration:0.3 animations:^{
             [self.thanksView setAlpha:1];
         }];
+         self.personImgView = nil;
+         [[FacedoorModel sharedInstance] resetModel];
+         
      }
                                            failure:^
      (AFHTTPRequestOperation *operation, NSError *error)
@@ -242,6 +246,9 @@
          [UIView animateWithDuration:0.3 animations:^{
              [self.thanksView setAlpha:1];
          }];
+         self.personImgView = nil;
+         [[FacedoorModel sharedInstance] resetModel];
+         
    }];
 }
 
@@ -265,6 +272,9 @@
          [UIView animateWithDuration:0.3 animations:^{
              [self.thanksView setAlpha:1];
          }];
+         self.personImgView = nil;
+         [[FacedoorModel sharedInstance] resetModel];
+         
 
      }
                                            failure:^
@@ -285,6 +295,9 @@
          [UIView animateWithDuration:0.3 animations:^{
              [self.thanksView setAlpha:1];
          }];
+         self.personImgView = nil;
+         [[FacedoorModel sharedInstance] resetModel];
+         
      }];
 }
 
@@ -296,6 +309,7 @@
 
 - (void)notifyResult:(BOOL)yesOrNo
 {
+    
     if(yesOrNo == YES)
     {
         [self approveRequest];
@@ -304,7 +318,8 @@
     {
         [self denyRequest];
     }
-    self.personImgView = nil;
+    
+    
 }
 
 @end

@@ -25,6 +25,6 @@
 - (void)respondToDoorAccessRequestApproved:(BOOL)approved
                                compilition:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
-
+- (void)resetModel;
 
 @end
