@@ -46,9 +46,9 @@ typedef enum APIRequestType {
 {
     NSString *updateStatusUrl = [self apiUrlWithRequestType:APIRequestTypeStatus];
     //TODO
-    self.eventId = @"d7c6e9be88324d4eab49523dcd091653";
     NSURL *url = [NSURL URLWithString:[updateStatusUrl stringByAppendingFormat:@"&eventId=%@&status=%d",self.eventId,approved? 1:2]];
     
+    DDLogCVerbose(@"update status : %@",url);
     // Create client
     AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:url];
     // Make a request...

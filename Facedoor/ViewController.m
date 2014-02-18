@@ -26,7 +26,7 @@
 @property (weak, nonatomic) IBOutlet FUIButton *noButton;
 @property (weak, nonatomic) IBOutlet FUIButton *showLog;
 @property (weak, nonatomic) IBOutlet FUIButton *simulatePush;
-@property (weak, nonatomic) IBOutlet TWDraggableView *personImgView;
+@property (strong, nonatomic) IBOutlet TWDraggableView *personImgView;
 @property (weak, nonatomic) IBOutlet UIView *thanksView;
 
 @property (strong, nonatomic) FacedoorModel *model;
@@ -164,6 +164,15 @@
 
 - (void)loadImageWithEventId:(NSString*)eventId
 {
+    if(!self.personImgView)
+    {
+        self.personImgView = [[TWDraggableView alloc] initWithFrame:(CGRect){40,47,240,233}];
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.thanksView setAlpha:0];
+            [self.view addSubview:self.personImgView];
+        }];
+    }
+    
     NSString *imgUrl = [self.model imageUrlForPersonWithEventId:eventId];
     [self.personImgView loadImageWithUrl:imgUrl];
 }
@@ -203,7 +212,7 @@
                                                              style:ALAlertBannerStyleSuccess
                                                           position:ALAlertBannerPositionTop
                                                              title:@"Door was opened"
-                                                          subtitle:@"You've opened the door for X"
+                                                          subtitle:nil
                                                        tappedBlock:^(ALAlertBanner *alertBanner)
                                   {
                                         NSLog(@"tapped!");
@@ -238,14 +247,14 @@
 
 - (IBAction)denyRequest
 {    
-    [self.model respondToDoorAccessRequestApproved:YES
+    [self.model respondToDoorAccessRequestApproved:NO
                                        compilition:^
      (AFHTTPRequestOperation *operation, id responseObject)
      {
          ALAlertBanner *banner = [ALAlertBanner alertBannerForView:self.view
-                                                             style:ALAlertBannerStyleSuccess
+                                                             style:ALAlertBannerStyleNotify
                                                           position:ALAlertBannerPositionTop
-                                                             title:@"Door remains close"
+                                                             title:@"Door remains closed"
                                                           subtitle:nil
                                                        tappedBlock:^(ALAlertBanner *alertBanner)
                                   {
@@ -253,15 +262,19 @@
                                       [alertBanner hide];
                                   }];
          [banner show];
+         [UIView animateWithDuration:0.3 animations:^{
+             [self.thanksView setAlpha:1];
+         }];
+
      }
                                            failure:^
      (AFHTTPRequestOperation *operation, NSError *error)
      {
          DDLogError(@"fialed send approve request");
          ALAlertBanner *banner = [ALAlertBanner alertBannerForView:self.view
-                                                             style:ALAlertBannerStyleFailure
+                                                             style:ALAlertBannerStyleNotify
                                                           position:ALAlertBannerPositionTop
-                                                             title:@"Door remains close"
+                                                             title:@"Door remains closed"
                                                           subtitle:nil
                                                        tappedBlock:^(ALAlertBanner *alertBanner)
                                   {
@@ -269,6 +282,9 @@
                                       [alertBanner hide];
                                   }];
          [banner show];
+         [UIView animateWithDuration:0.3 animations:^{
+             [self.thanksView setAlpha:1];
+         }];
      }];
 }
 
@@ -288,6 +304,7 @@
     {
         [self denyRequest];
     }
+    self.personImgView = nil;
 }
 
 @end

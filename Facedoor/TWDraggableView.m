@@ -23,6 +23,16 @@
 
 @implementation TWDraggableView
 
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (!self) return nil;
+    
+    [self commonInit];
+    
+    return self;
+}
+
 - (id)initWithCoder:(NSCoder*)aCoder
 {
     self = [super initWithCoder:aCoder];
@@ -69,10 +79,12 @@
         if(error)
         {
             self.baseImageView.image = [UIImage imageNamed:@"noEvent"];
+            self.userInteractionEnabled = NO;
         }
         else
         {
             self.baseImageView.image = [UIImage imageNamed:@"eventBase"];
+            self.userInteractionEnabled = YES;
         }
     }];
     
