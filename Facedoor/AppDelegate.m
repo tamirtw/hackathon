@@ -119,13 +119,13 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
         DDLogCError(@"%@",exception);
     }
     @finally {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kPushInfoArrived object:self userInfo:nil];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"options"
-                                                            message:[pushInfo description]
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-        [alertView show];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kPushInfoArrived object:self userInfo:nil];
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"options"
+//                                                            message:[pushInfo description]
+//                                                           delegate:nil
+//                                                  cancelButtonTitle:@"OK"
+//                                                  otherButtonTitles:nil];
+//        [alertView show];
     }
 }
 

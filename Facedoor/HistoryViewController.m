@@ -84,10 +84,12 @@
     cell.timeAgo.text = [logEntry.timestamp timeAgo];
     cell.eventTitle.text = logEntry.eventId;
     [cell.eventImg displayImageFromURL:[[FacedoorModel sharedInstance] imageUrlForPersonWithEventId:logEntry.eventId]
-                     completionHandler:nil];
-    //TODO Add place holder image 
-    
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"details for row number %d",indexPath.row];
+                     completionHandler:^(NSError *error) {
+                         if(error)
+                         {
+                             [cell.eventImg setImage:[UIImage imageNamed:@"personPlaceHolder"]];
+                         }
+                     }];
     
     return cell;
 }

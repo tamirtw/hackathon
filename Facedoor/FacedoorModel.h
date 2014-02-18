@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "AFHTTPRequestOperation.h"
 
 
 
@@ -23,8 +23,8 @@
 - (NSString*)imageUrlForPerson;
 - (NSString*)imageUrlForPersonWithEventId:(NSString*)eventId;
 - (void)respondToDoorAccessRequestApproved:(BOOL)approved
-                               compilition:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id JSON))success
-                                   failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON))failure;
+                               compilition:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 - (void)testApiForStatus;
 
 

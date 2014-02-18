@@ -10,6 +10,12 @@
 #import "AFNetworking.h"
 #import "NSData+Base64_Data.h"
 
+typedef enum APIRequestType {
+    APIRequestTypeStatus ,
+    APIRequestTypeImage
+}APIRequestType;
+
+
 @implementation FacedoorModel
 
 
@@ -30,64 +36,31 @@
 
 - (NSString*)imageUrlForPersonWithEventId:(NSString*)eventId
 {
-    return [NSString stringWithFormat:@"%@&eventId=%@",[self apiUrl],eventId];
+    return [NSString stringWithFormat:@"%@&eventId=%@",[self apiUrlWithRequestType:APIRequestTypeImage],eventId];
 }
 
 
 - (void)respondToDoorAccessRequestApproved:(BOOL)approved
-                               compilition:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id JSON))success
-                                   failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON))failure
+                               compilition:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
-    NSString *perosnImgUrl = [self apiUrl];
-    NSURL *url = [NSURL URLWithString:perosnImgUrl];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSString *updateStatusUrl = [self apiUrlWithRequestType:APIRequestTypeStatus];
+    //TODO
+    self.eventId = @"d7c6e9be88324d4eab49523dcd091653";
+    NSURL *url = [NSURL URLWithString:[updateStatusUrl stringByAppendingFormat:@"&eventId=%@&status=%d",self.eventId,approved? 1:2]];
     
-    AFJSONRequestOperation *operation =
-    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                    success:success
-                                                    failure:failure];
-    
-    [operation start];
-}
-
-- (void)testApiForStatus
-{
-    NSString *urlString = [NSString stringWithFormat:@"http://facedoor.cloudapp.net/api/Status?id=%@&eventId=%@",self.systemId,self.eventId];
-    NSURL *url = [NSURL URLWithString:urlString];
-//    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-//    
-//    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-//                            @"YXNkYXNkYQ==", @" ",
-//                            nil];
-//    [httpClient postPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-//        NSLog(@"Request Successful, response '%@'", responseStr);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"[HTTPClient Error]: %@", error.localizedDescription);
-//    }];
+    // Create client
+    AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:url];
     // Make a request...
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     
-    // Generate an NSData from your NSString (see below for link to more info)
-    NSData *postBody = [NSData base64DataFromString:@"1"];
-    
-    // Add Content-Length header if your server needs it
-    unsigned long long postLength = postBody.length;
-    NSString *contentLength = [NSString stringWithFormat:@"%llu", postLength];
-    [request addValue:contentLength forHTTPHeaderField:@"Content-Length"];
-    
-    // This should all look familiar...
     [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:postBody];
     
-//    AFHTTPRequestOperation *operation = [client HTTPRequestOperationWithRequest:request success:success failure:failure];
-//    [client enqueueHTTPRequestOperation:operation];
-}
-
-- (NSString*)baseUrl
-{
-//    return @"http://www.quizz.biz/uploads/quizz/152064/3_8yQNI.jpg";
-    return @"http://facedoor.cloudapp.net/api/Image?id=1&eventId=3efd1487654f4167b90ea4b00099f5a1";
+    AFHTTPRequestOperation *operation = [client HTTPRequestOperationWithRequest:request
+                                                                        success:success
+                                                                        failure:failure];
+    
+    [operation start];
 }
 
 - (NSString*)systemId
@@ -95,9 +68,27 @@
     return _systemId ? _systemId : @"1";
 }
 
-- (NSString*)apiUrl
+- (NSString*)apiUrlWithRequestType:(APIRequestType)requestType
 {
-    return [NSString stringWithFormat:@"http://facedoor.cloudapp.net/api/Image?id=%@",self.systemId];
+    return [NSString stringWithFormat:@"http://facedoor.cloudapp.net/api/%@?id=%@", [self pathForRequestType:requestType],self.systemId];
+}
+
+- (NSString*)pathForRequestType:(APIRequestType)requestType
+{
+    NSString *path = nil;
+    switch (requestType) {
+        case APIRequestTypeImage:
+            path = @"Image";
+            break;
+        case APIRequestTypeStatus:
+            path = @"Status";
+            break;
+        default:
+            DDLogError(@"Error: Missing request type");
+            break;
+    }
+    
+    return path;
 }
 
 

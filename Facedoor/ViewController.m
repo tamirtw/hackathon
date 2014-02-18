@@ -15,17 +15,19 @@
 #import "ALAlertBanner.h"
 #import "HistoryLogModel.h"
 #import "IIViewDeckController.h"
+#import "TWDraggableView.h"
 
 #define ARC4RANDOM_MAX      0x100000000
 
 
-@interface ViewController ()
+@interface ViewController () <DraggableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet FUIButton *yesButton;
 @property (weak, nonatomic) IBOutlet FUIButton *noButton;
 @property (weak, nonatomic) IBOutlet FUIButton *showLog;
 @property (weak, nonatomic) IBOutlet FUIButton *simulatePush;
-@property (weak, nonatomic) IBOutlet MNMRemoteImageView *personImgView;
+@property (weak, nonatomic) IBOutlet TWDraggableView *personImgView;
+@property (weak, nonatomic) IBOutlet UIView *thanksView;
 
 @property (strong, nonatomic) FacedoorModel *model;
 @property (strong, nonatomic) HistoryLogModel *historyLog;
@@ -71,7 +73,7 @@
     [self setupAppearance];
         
     DDLogVerbose(@"%@",[self.historyLog getHistoryLog]);
-
+    self.personImgView.delegate = self;
 }
 
 - (void)setupAppearance
@@ -107,7 +109,8 @@
     self.simulatePush.cornerRadius = 6.0f;
     [self.simulatePush setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
     [self.simulatePush setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
-
+    
+    [self.thanksView setAlpha:0.f];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -162,11 +165,7 @@
 - (void)loadImageWithEventId:(NSString*)eventId
 {
     NSString *imgUrl = [self.model imageUrlForPersonWithEventId:eventId];
-    [self.personImgView displayImageFromURL:imgUrl
-                         completionHandler:^(NSError *error)
-    {
-        //TODO Add placeholder image
-    }];
+    [self.personImgView loadImageWithUrl:imgUrl];
 }
 
 - (IBAction)simulatePushMessage
@@ -198,7 +197,7 @@
 {
     [self.model respondToDoorAccessRequestApproved:YES
                                        compilition:^
-     (NSURLRequest *request, NSHTTPURLResponse *response, id JSON)
+     (AFHTTPRequestOperation *operation, id responseObject)
      {
          ALAlertBanner *banner = [ALAlertBanner alertBannerForView:self.view
                                                              style:ALAlertBannerStyleSuccess
@@ -211,9 +210,13 @@
                                       [alertBanner hide];
                                   }];
          [banner show];
+         
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.thanksView setAlpha:1];
+        }];
      }
                                            failure:^
-     (NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON)
+     (AFHTTPRequestOperation *operation, NSError *error)
      {
            DDLogError(@"fialed send approve request");
          ALAlertBanner *banner = [ALAlertBanner alertBannerForView:self.view
@@ -227,23 +230,23 @@
                                       [alertBanner hide];
                                   }];
          [banner show];
+         [UIView animateWithDuration:0.3 animations:^{
+             [self.thanksView setAlpha:1];
+         }];
    }];
 }
 
 - (IBAction)denyRequest
-{
-    
-    [self.model testApiForStatus];
-    return;
+{    
     [self.model respondToDoorAccessRequestApproved:YES
                                        compilition:^
-     (NSURLRequest *request, NSHTTPURLResponse *response, id JSON)
+     (AFHTTPRequestOperation *operation, id responseObject)
      {
          ALAlertBanner *banner = [ALAlertBanner alertBannerForView:self.view
                                                              style:ALAlertBannerStyleSuccess
                                                           position:ALAlertBannerPositionTop
-                                                             title:@"Door was opened"
-                                                          subtitle:@"You've opened the door for X"
+                                                             title:@"Door remains close"
+                                                          subtitle:nil
                                                        tappedBlock:^(ALAlertBanner *alertBanner)
                                   {
                                       NSLog(@"tapped!");
@@ -252,14 +255,14 @@
          [banner show];
      }
                                            failure:^
-     (NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON)
+     (AFHTTPRequestOperation *operation, NSError *error)
      {
          DDLogError(@"fialed send approve request");
          ALAlertBanner *banner = [ALAlertBanner alertBannerForView:self.view
                                                              style:ALAlertBannerStyleFailure
                                                           position:ALAlertBannerPositionTop
-                                                             title:@"Door was opened"
-                                                          subtitle:@"You've opened the door for X"
+                                                             title:@"Door remains close"
+                                                          subtitle:nil
                                                        tappedBlock:^(ALAlertBanner *alertBanner)
                                   {
                                       NSLog(@"tapped!");
@@ -275,5 +278,16 @@
     [self.viewDeckController toggleRightViewAnimated:YES];
 }
 
+- (void)notifyResult:(BOOL)yesOrNo
+{
+    if(yesOrNo == YES)
+    {
+        [self approveRequest];
+    }
+    else
+    {
+        [self denyRequest];
+    }
+}
 
 @end

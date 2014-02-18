@@ -29,6 +29,18 @@
 		A006E4FB18B0C4E3000BEBA6 /* UIToolbar+FlatUI.m in Sources */ = {isa = PBXBuildFile; fileRef = A006E4E518B0C4E3000BEBA6 /* UIToolbar+FlatUI.m */; };
 		A006E4FC18B0C4E3000BEBA6 /* UIScrollView+SpiralPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = A006E4E818B0C4E3000BEBA6 /* UIScrollView+SpiralPullToRefresh.m */; };
 		A006E4FE18B0C635000BEBA6 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A006E4FD18B0C635000BEBA6 /* CoreText.framework */; };
+		A025265018B34ACD0099D14C /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A025264F18B34ACD0099D14C /* icon@2x.png */; };
+		A025265218B34AD20099D14C /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A025265118B34AD20099D14C /* icon.png */; };
+		A025265C18B361980099D14C /* personPlaceHolder.png in Resources */ = {isa = PBXBuildFile; fileRef = A025265B18B361980099D14C /* personPlaceHolder.png */; };
+		A025265F18B3667F0099D14C /* TWDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A025265E18B3667F0099D14C /* TWDraggableView.m */; };
+		A025266218B366F00099D14C /* TWOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = A025266118B366F00099D14C /* TWOverlayView.m */; };
+		A025266718B36D050099D14C /* approved.png in Resources */ = {isa = PBXBuildFile; fileRef = A025266418B36D050099D14C /* approved.png */; };
+		A025266818B36D050099D14C /* eventBase.png in Resources */ = {isa = PBXBuildFile; fileRef = A025266518B36D050099D14C /* eventBase.png */; };
+		A025266918B36D050099D14C /* rejected.png in Resources */ = {isa = PBXBuildFile; fileRef = A025266618B36D050099D14C /* rejected.png */; };
+		A025266B18B36F2D0099D14C /* noEvent.png in Resources */ = {isa = PBXBuildFile; fileRef = A025266A18B36F2D0099D14C /* noEvent.png */; };
+		A025266D18B371E90099D14C /* doorwide.png in Resources */ = {isa = PBXBuildFile; fileRef = A025266C18B371E90099D14C /* doorwide.png */; };
+		A045395818B3853C006EA648 /* authorized.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A045395618B3853C006EA648 /* authorized.aiff */; };
+		A045395918B3853C006EA648 /* request.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A045395718B3853C006EA648 /* request.aiff */; };
 		A05C3C2318B201A5006D9480 /* HistoryLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C3C2218B201A5006D9480 /* HistoryLogModel.m */; };
 		A05C3C2618B209AF006D9480 /* LogEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C3C2518B209AE006D9480 /* LogEntry.m */; };
 		A05C3C3318B20BEF006D9480 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C3C2918B20BEF006D9480 /* FMDatabase.m */; };
@@ -157,6 +169,20 @@
 		A006E4E718B0C4E3000BEBA6 /* UIScrollView+SpiralPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SpiralPullToRefresh.h"; sourceTree = "<group>"; };
 		A006E4E818B0C4E3000BEBA6 /* UIScrollView+SpiralPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SpiralPullToRefresh.m"; sourceTree = "<group>"; };
 		A006E4FD18B0C635000BEBA6 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		A025264F18B34ACD0099D14C /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		A025265118B34AD20099D14C /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		A025265B18B361980099D14C /* personPlaceHolder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = personPlaceHolder.png; path = Facedoor/personPlaceHolder.png; sourceTree = "<group>"; };
+		A025265D18B3667F0099D14C /* TWDraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWDraggableView.h; sourceTree = "<group>"; };
+		A025265E18B3667F0099D14C /* TWDraggableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWDraggableView.m; sourceTree = "<group>"; };
+		A025266018B366F00099D14C /* TWOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWOverlayView.h; sourceTree = "<group>"; };
+		A025266118B366F00099D14C /* TWOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWOverlayView.m; sourceTree = "<group>"; };
+		A025266418B36D050099D14C /* approved.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = approved.png; path = Facedoor/approved.png; sourceTree = "<group>"; };
+		A025266518B36D050099D14C /* eventBase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = eventBase.png; path = Facedoor/eventBase.png; sourceTree = "<group>"; };
+		A025266618B36D050099D14C /* rejected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rejected.png; path = Facedoor/rejected.png; sourceTree = "<group>"; };
+		A025266A18B36F2D0099D14C /* noEvent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noEvent.png; path = Facedoor/noEvent.png; sourceTree = "<group>"; };
+		A025266C18B371E90099D14C /* doorwide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = doorwide.png; path = Facedoor/doorwide.png; sourceTree = "<group>"; };
+		A045395618B3853C006EA648 /* authorized.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = authorized.aiff; sourceTree = "<group>"; };
+		A045395718B3853C006EA648 /* request.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = request.aiff; sourceTree = "<group>"; };
 		A05C3C2118B201A5006D9480 /* HistoryLogModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryLogModel.h; sourceTree = "<group>"; };
 		A05C3C2218B201A5006D9480 /* HistoryLogModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryLogModel.m; sourceTree = "<group>"; };
 		A05C3C2418B209AE006D9480 /* LogEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogEntry.h; sourceTree = "<group>"; };
@@ -433,6 +459,17 @@
 			path = "Spiral Pull";
 			sourceTree = "<group>";
 		};
+		A025266318B368A50099D14C /* ApproveControl */ = {
+			isa = PBXGroup;
+			children = (
+				A025265D18B3667F0099D14C /* TWDraggableView.h */,
+				A025265E18B3667F0099D14C /* TWDraggableView.m */,
+				A025266018B366F00099D14C /* TWOverlayView.h */,
+				A025266118B366F00099D14C /* TWOverlayView.m */,
+			);
+			name = ApproveControl;
+			sourceTree = "<group>";
+		};
 		A05C3C2718B20BEF006D9480 /* FMDB */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,6 +540,14 @@
 		A062906118B0B32B00A4C5B0 = {
 			isa = PBXGroup;
 			children = (
+				A025266C18B371E90099D14C /* doorwide.png */,
+				A025266A18B36F2D0099D14C /* noEvent.png */,
+				A025266418B36D050099D14C /* approved.png */,
+				A025266518B36D050099D14C /* eventBase.png */,
+				A025266618B36D050099D14C /* rejected.png */,
+				A025265B18B361980099D14C /* personPlaceHolder.png */,
+				A025265118B34AD20099D14C /* icon.png */,
+				A025264F18B34ACD0099D14C /* icon@2x.png */,
 				A062907318B0B32B00A4C5B0 /* Facedoor */,
 				A062909718B0B32B00A4C5B0 /* FacedoorTests */,
 				A062906C18B0B32B00A4C5B0 /* Frameworks */,
@@ -554,6 +599,7 @@
 				A0D17ED218B0EC8000B5BFFF /* FacedoorModel.m */,
 				A05F66B418B242DA00EDE205 /* Utils */,
 				A05F66B318B242C500EDE205 /* History */,
+				A025266318B368A50099D14C /* ApproveControl */,
 			);
 			path = Facedoor;
 			sourceTree = "<group>";
@@ -561,6 +607,8 @@
 		A062907418B0B32B00A4C5B0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A045395618B3853C006EA648 /* authorized.aiff */,
+				A045395718B3853C006EA648 /* request.aiff */,
 				A09F8BA318B2511500A75BA2 /* AirshipConfig.plist */,
 				A062907518B0B32B00A4C5B0 /* Facedoor-Info.plist */,
 				A062907618B0B32B00A4C5B0 /* InfoPlist.strings */,
@@ -889,6 +937,16 @@
 				A0BA5AA318B1FA720090D7AA /* LICENSE in Resources */,
 				A0BA5AA518B1FA720090D7AA /* NSDateTimeAgo.bundle in Resources */,
 				A09F8BA418B2511500A75BA2 /* AirshipConfig.plist in Resources */,
+				A025265018B34ACD0099D14C /* icon@2x.png in Resources */,
+				A025265218B34AD20099D14C /* icon.png in Resources */,
+				A025265C18B361980099D14C /* personPlaceHolder.png in Resources */,
+				A025266718B36D050099D14C /* approved.png in Resources */,
+				A025266818B36D050099D14C /* eventBase.png in Resources */,
+				A025266918B36D050099D14C /* rejected.png in Resources */,
+				A025266B18B36F2D0099D14C /* noEvent.png in Resources */,
+				A025266D18B371E90099D14C /* doorwide.png in Resources */,
+				A045395818B3853C006EA648 /* authorized.aiff in Resources */,
+				A045395918B3853C006EA648 /* request.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -981,6 +1039,8 @@
 				A05C3C3818B20BEF006D9480 /* FMResultSet.m in Sources */,
 				A05C3C3D18B20DF8006D9480 /* HistoryViewController.m in Sources */,
 				A09F8BA718B25BF500A75BA2 /* LogEntryCell.m in Sources */,
+				A025265F18B3667F0099D14C /* TWDraggableView.m in Sources */,
+				A025266218B366F00099D14C /* TWOverlayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
