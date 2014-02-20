@@ -1,3 +1,9 @@
 [submodule "ios-client-app"]
 	path = ios-client-app
 	url = https://github.com/tamirtw/hackathon-ios-app.git
+[submodule "azure-cloud-app"]
+	path = azure-cloud-app
+	url = https://github.com/tamirtw/hackathon-azure-cloud-app.git
+[submodule "gadeteer"]
+	path = gadeteer
+	url = https://github.com/tamirtw/hackathon-gadeteer.git
