@@ -123,6 +123,7 @@
 
 - (void)pushUpdateArrived
 {
+    self.personImgView.userInteractionEnabled = YES;
     if(!self.model.isAuthorized)
     {
         [self handleUnAuthorizedEvent];

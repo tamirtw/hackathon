@@ -28,10 +28,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSDictionary *pushNotification = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     
     [self configPush];
-//    NSDictionary *pushNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
-    NSDictionary *pushNotification = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+
     
     if (pushNotification)
     {

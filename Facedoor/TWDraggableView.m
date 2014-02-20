@@ -10,6 +10,7 @@
 #import "MNMRemoteImageView.h"
 #import "TWOverlayView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "FacedoorModel.h"
 
 #define xDistanceThreshold 100
 
@@ -72,21 +73,27 @@
 
 - (void)loadImageWithUrl:(NSString*)imgUrl
 {
-
-    [self.imageView displayImageFromURL:imgUrl
-                      completionHandler:^(NSError *error)
-    {
-        if(error)
-        {
-            self.baseImageView.image = [UIImage imageNamed:@"noEvent"];
-            self.userInteractionEnabled = NO;
-        }
-        else
-        {
-            self.baseImageView.image = [UIImage imageNamed:@"eventBase"];
-            self.userInteractionEnabled = YES;
-        }
-    }];
+    @try{
+        [self.imageView displayImageFromURL:imgUrl
+                          completionHandler:^(NSError *error)
+         {
+             if(error)
+             {
+                 self.baseImageView.image = [UIImage imageNamed:@"noEvent"];
+                 self.userInteractionEnabled = NO;
+             }
+             else
+             {
+                 self.baseImageView.image = [UIImage imageNamed:@"eventBase"];
+                 self.userInteractionEnabled = ![[FacedoorModel sharedInstance] isAuthorized];
+             }
+         }];
+    }
+    @catch (NSException* e) {
+        DDLogCError(@"%@",e);
+        self.baseImageView.image = [UIImage imageNamed:@"noEvent"];
+        self.userInteractionEnabled = NO;
+    }
     
 }
 
