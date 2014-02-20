@@ -1,0 +1,3 @@
+[submodule "ios-client-app"]
+	path = ios-client-app
+	url = https://github.com/tamirtw/hackathon-ios-app.git
